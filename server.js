@@ -1,26 +1,26 @@
-// server.js - NEXUS BUILDER 2099
-// Build Discord Servers Visually then Deploy with 1 Click
-
 const express = require('express');
 const session = require('express-session');
 const fs = require('fs');
 const path = require('path');
-const { Client, GatewayIntentBits, ChannelType, PermissionFlagsBits } = require('discord.js');
+const { Client, GatewayIntentBits, ChannelType } = require('discord.js');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// إعداد المجلدات
+if (!fs.existsSync('./data')) fs.mkdirSync('./data');
+if (!fs.existsSync('./data/users.json')) fs.writeFileSync('./data/users.json', '[]');
+
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 app.use(session({
-    secret: 'nexus_builder_secret_2099',
+    secret: 'nexus_builder_secret_key_2099',
     resave: false,
     saveUninitialized: true
 }));
 
-// ========== Build the Real Server from Mockup Data ==========
-async function buildRealServer(botToken, targetGuildId, mockupData, username) {
+// ========== بناء السيرفر الحقيقي ==========
+async function buildRealServer(botToken, targetGuildId, mockupData) {
     let client = null;
     try {
         client = new Client({
@@ -33,19 +33,19 @@ async function buildRealServer(botToken, targetGuildId, mockupData, username) {
         const guild = client.guilds.cache.get(targetGuildId);
         if (!guild) {
             await client.destroy();
-            return { error: 'Bot not in that server or invalid ID' };
+            return { error: 'البوت ليس في هذا السيرفر أو ID غير صحيح' };
         }
 
         const categoryMap = new Map();
         const results = { categories: 0, channels: 0, errors: [] };
 
-        // 1. Create Categories
+        // 1. إنشاء جميع الكاتيجوريات دفعة واحدة
         const categoryPromises = [];
         for (const cat of mockupData.categories) {
             const promise = guild.channels.create({
                 name: cat.name,
                 type: ChannelType.GuildCategory,
-                reason: 'NEXUS BUILDER 2099'
+                reason: 'NEXUS BUILDER'
             }).then(ch => {
                 categoryMap.set(cat.id, ch.id);
                 results.categories++;
@@ -55,7 +55,7 @@ async function buildRealServer(botToken, targetGuildId, mockupData, username) {
         }
         await Promise.all(categoryPromises);
 
-        // 2. Create Channels under their categories
+        // 2. إنشاء جميع الرومات دفعة واحدة
         const channelPromises = [];
         for (const ch of mockupData.channels) {
             const parentId = ch.parentCategoryId ? categoryMap.get(ch.parentCategoryId) : null;
@@ -63,7 +63,7 @@ async function buildRealServer(botToken, targetGuildId, mockupData, username) {
                 name: ch.name,
                 type: ChannelType.GuildText,
                 parent: parentId,
-                reason: 'NEXUS BUILDER 2099'
+                reason: 'NEXUS BUILDER'
             }).then(() => results.channels++)
               .catch(err => results.errors.push(`Channel ${ch.name}: ${err.message}`));
             channelPromises.push(promise);
@@ -73,7 +73,7 @@ async function buildRealServer(botToken, targetGuildId, mockupData, username) {
         await client.destroy();
         return {
             success: true,
-            message: `Built ${results.categories} categories & ${results.channels} channels`,
+            message: `✅ تم بناء ${results.categories} كاتيجوري و ${results.channels} روم`,
             errors: results.errors
         };
     } catch (err) {
@@ -82,14 +82,18 @@ async function buildRealServer(botToken, targetGuildId, mockupData, username) {
     }
 }
 
-// API Routes
+// ========== API Routes ==========
 app.post('/api/build', async (req, res) => {
-    const { token, guildId, mockup, username } = req.body;
+    const { token, guildId, mockup } = req.body;
     if (!token || !guildId || !mockup) {
-        return res.json({ error: 'Missing token, guildId, or mockup data' });
+        return res.json({ error: 'البيانات ناقصة: توكن، ID سيرفر، أو بيانات المحاكاة' });
     }
-    const result = await buildRealServer(token, guildId, mockup, username);
+    const result = await buildRealServer(token, guildId, mockup);
     res.json(result);
+});
+
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 app.listen(PORT, () => {
