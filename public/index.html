@@ -34,69 +34,118 @@
         .container {
             position: relative;
             z-index: 2;
-            max-width: 1400px;
+            max-width: 1600px;
+            width: 95%;
             margin: 0 auto;
-            padding: 15px;
+            padding: 20px;
         }
 
         /* الهيدر */
         .hero {
             text-align: center;
-            padding: 30px 15px;
+            padding: 40px 20px;
             background: rgba(0,0,0,0.5);
             backdrop-filter: blur(12px);
-            border-radius: 40px;
-            margin-bottom: 25px;
+            border-radius: 50px;
+            margin-bottom: 30px;
             border: 1px solid rgba(255,80,40,0.5);
         }
         .hero h1 {
-            font-size: clamp(28px, 8vw, 65px);
+            font-size: clamp(32px, 8vw, 80px);
             background: linear-gradient(135deg, #ff4d4d, #ff9f4a);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
         }
         .hero p {
-            font-size: clamp(12px, 4vw, 18px);
+            font-size: clamp(14px, 4vw, 20px);
             color: #ccc;
-            margin-top: 8px;
+            margin-top: 10px;
         }
         .enter-btn {
             background: linear-gradient(135deg, #ff4d4d, #ff2a2a);
             border: none;
-            padding: 12px 25px;
+            padding: 14px 35px;
             font-size: clamp(16px, 5vw, 22px);
             font-weight: bold;
             border-radius: 50px;
-            margin-top: 18px;
+            margin-top: 25px;
             cursor: pointer;
             color: white;
-            width: 90%;
-            max-width: 280px;
             transition: 0.2s;
         }
         .enter-btn:hover {
-            transform: scale(1.02);
-            box-shadow: 0 0 20px #ff4d4d;
+            transform: scale(1.03);
+            box-shadow: 0 0 25px #ff4d4d;
         }
 
-        /* أدوات */
+        /* شرح النظام للمستخدم الجديد */
+        .info-section {
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            padding: 25px;
+            margin-bottom: 35px;
+            border: 1px solid #ff9f4a;
+        }
+        .info-section h2 {
+            color: #ff9f4a;
+            margin-bottom: 15px;
+            font-size: 26px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 15px;
+        }
+        .info-card {
+            background: rgba(20,25,40,0.7);
+            border-radius: 20px;
+            padding: 18px;
+            border-left: 4px solid #ff4d4d;
+        }
+        .info-card h3 {
+            color: #ff9f4a;
+            margin-bottom: 8px;
+            font-size: 18px;
+        }
+        .info-card p {
+            color: #bbb;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        .info-card .example {
+            background: #0a0f1a;
+            padding: 6px 12px;
+            border-radius: 15px;
+            margin-top: 10px;
+            font-family: monospace;
+            font-size: 12px;
+            color: #ff9f4a;
+            display: inline-block;
+        }
+
+        /* كروت الأدوات */
         .tools-grid {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 20px;
+            gap: 25px;
             margin-top: 20px;
         }
         @media (min-width: 768px) {
             .tools-grid {
-                grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+                grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             }
         }
         .tool-card {
             background: rgba(15, 20, 30, 0.85);
             backdrop-filter: blur(10px);
-            border-radius: 30px;
-            padding: 25px;
+            border-radius: 35px;
+            padding: 35px;
             text-align: center;
             cursor: pointer;
             border: 1px solid rgba(255,100,50,0.4);
@@ -107,12 +156,16 @@
             border-color: #ff4d4d;
         }
         .tool-icon {
-            font-size: 55px;
-            margin-bottom: 15px;
+            font-size: 65px;
+            margin-bottom: 20px;
         }
         .tool-card h3 {
-            font-size: 26px;
-            margin-bottom: 8px;
+            font-size: 30px;
+            margin-bottom: 10px;
+        }
+        .tool-card p {
+            color: #aaa;
+            font-size: 15px;
         }
 
         /* لوحة البناء */
@@ -120,8 +173,8 @@
             display: none;
             background: rgba(10,15,25,0.95);
             backdrop-filter: blur(20px);
-            border-radius: 35px;
-            padding: 20px;
+            border-radius: 40px;
+            padding: 25px;
             margin-top: 25px;
             border: 1px solid #ff4d4d;
         }
@@ -131,42 +184,43 @@
             align-items: center;
             flex-wrap: wrap;
             gap: 15px;
-            margin-bottom: 25px;
+            margin-bottom: 30px;
         }
         .back-btn {
             background: #2a2f3f;
             border: none;
-            padding: 10px 22px;
+            padding: 12px 28px;
             border-radius: 40px;
             cursor: pointer;
             color: white;
-            font-size: 14px;
+            font-size: 15px;
         }
         .input-group {
             background: #0a0f1a;
-            padding: 18px;
-            border-radius: 25px;
-            margin-bottom: 20px;
+            padding: 20px;
+            border-radius: 30px;
+            margin-bottom: 25px;
         }
         .input-group h3 {
-            margin-bottom: 12px;
+            margin-bottom: 15px;
             color: #ff9f4a;
+            font-size: 20px;
         }
         input, select {
             width: 100%;
-            padding: 12px;
-            border-radius: 20px;
+            padding: 14px;
+            border-radius: 25px;
             border: 1px solid #2a2f3f;
             background: #111418;
             color: white;
-            margin: 8px 0;
-            font-size: 14px;
+            margin: 10px 0;
+            font-size: 15px;
         }
         button {
             background: #5865f2;
             border: none;
-            padding: 10px 18px;
-            border-radius: 25px;
+            padding: 12px 22px;
+            border-radius: 30px;
             cursor: pointer;
             color: white;
             font-weight: bold;
@@ -178,7 +232,7 @@
         .row-2col {
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 25px;
         }
         @media (min-width: 900px) {
             .row-2col {
@@ -192,55 +246,55 @@
         /* واجهة المحاكاة */
         .mock-server-view {
             background: #111418;
-            border-radius: 25px;
-            padding: 18px;
-            min-height: 400px;
-            max-height: 500px;
+            border-radius: 30px;
+            padding: 20px;
+            min-height: 450px;
+            max-height: 550px;
             overflow-y: auto;
-            margin: 20px 0;
+            margin: 25px 0;
         }
         .category-item {
-            margin-top: 18px;
-            border-left: 4px solid #ff4d4d;
-            padding-left: 12px;
+            margin-top: 20px;
+            border-left: 5px solid #ff4d4d;
+            padding-left: 15px;
         }
         .category-title {
             display: flex;
             justify-content: space-between;
             align-items: center;
             background: #1a1f2a;
-            padding: 10px 15px;
-            border-radius: 18px;
-            margin-bottom: 8px;
+            padding: 12px 18px;
+            border-radius: 20px;
+            margin-bottom: 10px;
             flex-wrap: wrap;
-            gap: 10px;
+            gap: 12px;
         }
         .channel-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
             background: #0f1219;
-            padding: 8px 15px;
-            border-radius: 14px;
-            margin: 6px 0 6px 20px;
+            padding: 10px 18px;
+            border-radius: 16px;
+            margin: 8px 0 8px 25px;
             flex-wrap: wrap;
-            gap: 8px;
+            gap: 10px;
         }
         .privacy-btn {
             background: #2ea043;
             border: none;
-            padding: 5px 12px;
-            border-radius: 20px;
+            padding: 6px 14px;
+            border-radius: 25px;
             cursor: pointer;
-            font-size: 11px;
+            font-size: 12px;
         }
         .privacy-btn.admin-only {
             background: #da373c;
         }
         .delete-btn {
             background: #3b3f45;
-            padding: 4px 12px;
-            border-radius: 15px;
+            padding: 5px 14px;
+            border-radius: 18px;
             font-size: 12px;
         }
 
@@ -248,16 +302,16 @@
         .decorations-grid {
             display: flex;
             flex-wrap: wrap;
-            gap: 8px;
-            margin-top: 10px;
+            gap: 10px;
+            margin-top: 15px;
         }
         .deco-item {
             background: #2a2f3f;
-            padding: 6px 12px;
-            border-radius: 25px;
+            padding: 8px 16px;
+            border-radius: 30px;
             cursor: pointer;
             font-family: monospace;
-            font-size: 16px;
+            font-size: 18px;
             transition: 0.1s;
         }
         .deco-item:hover {
@@ -265,12 +319,12 @@
         }
         .template-badge {
             background: #1e2434;
-            padding: 8px 14px;
-            border-radius: 30px;
+            padding: 10px 18px;
+            border-radius: 35px;
             cursor: pointer;
-            font-size: 12px;
+            font-size: 13px;
             display: inline-block;
-            margin: 4px;
+            margin: 5px;
         }
         .template-badge:hover {
             background: #ff4d4d;
@@ -278,8 +332,8 @@
         .build-actions {
             display: flex;
             flex-direction: column;
-            gap: 12px;
-            margin-top: 20px;
+            gap: 15px;
+            margin-top: 25px;
         }
         @media (min-width: 600px) {
             .build-actions {
@@ -289,37 +343,44 @@
         }
         .build-real-btn {
             background: #23a55a;
-            padding: 12px 25px;
-            font-size: 16px;
+            padding: 14px 30px;
+            font-size: 17px;
         }
         .delete-then-build {
             background: #da373c;
         }
         .token-inputs {
-            margin-top: 15px;
+            margin-top: 20px;
             text-align: center;
         }
         .token-inputs input {
             width: 90%;
-            max-width: 300px;
-            margin: 5px;
+            max-width: 350px;
+            margin: 8px;
         }
         .toast-msg {
             position: fixed;
-            bottom: 20px;
+            bottom: 25px;
             left: 50%;
             transform: translateX(-50%);
             background: #1e1f22;
-            border-left: 4px solid #23a55a;
-            padding: 12px 20px;
-            border-radius: 30px;
+            border-left: 5px solid #23a55a;
+            padding: 14px 25px;
+            border-radius: 40px;
             z-index: 1000;
             display: none;
-            font-size: 14px;
+            font-size: 15px;
             white-space: nowrap;
         }
-        @media (max-width: 500px) {
-            .toast-msg { white-space: normal; width: 90%; text-align: center; }
+        @media (max-width: 550px) {
+            .toast-msg { white-space: normal; width: 85%; text-align: center; }
+        }
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: #555;
+            font-size: 12px;
         }
     </style>
 </head>
@@ -330,6 +391,42 @@
         <h1>⚡ NEXUS INFERNO ⚡</h1>
         <p>Build Legendary Discord Servers • Hidden Roles • Epic Templates</p>
         <button class="enter-btn" id="enterBuilderBtn">🔥 ENTER THE BUILDER 🔥</button>
+    </div>
+
+    <!-- شرح النظام للمستخدم الجديد -->
+    <div class="info-section">
+        <h2>📖 ✨ Welcome to Nexus Inferno ✨</h2>
+        <div class="info-grid">
+            <div class="info-card">
+                <h3>🏗️ What is this?</h3>
+                <p>A powerful tool to design and build Discord servers visually. Create categories, channels, set privacy, then deploy to your real server with one click.</p>
+            </div>
+            <div class="info-card">
+                <h3>🔒 Hidden Channels</h3>
+                <p>Green = Public (everyone sees). Red = Admin Only (hidden from regular members). Works in real Discord!</p>
+                <div class="example">Example: [PUBLIC] → [ADMIN ONLY]</div>
+            </div>
+            <div class="info-card">
+                <h3>✨ Decorations</h3>
+                <p>Click on any decoration below the input fields to add fancy text symbols to your category/channel names.</p>
+                <div class="example">✦ ⬩ ➤ 「 」 ╰┈➤</div>
+            </div>
+            <div class="info-card">
+                <h3>📁 Templates</h3>
+                <p>Choose from 10+ legendary server templates (Gaming, AI, Music, Crypto, Anime, etc.) with 30-50 channels each.</p>
+                <div class="example">Click template → Modify → Build</div>
+            </div>
+            <div class="info-card">
+                <h3>🤖 Bot Requirements</h3>
+                <p>Your bot needs: Manage Channels, View Channel, Send Messages permissions. Invite it to your server first.</p>
+                <div class="example">Bot Token + Server ID required</div>
+            </div>
+            <div class="info-card">
+                <h3>⚡ Speed</h3>
+                <p>All operations use Promise.all – builds 100+ channels in seconds!</p>
+                <div class="example">Parallel execution 🚀</div>
+            </div>
+        </div>
     </div>
 
     <div class="tools-grid" id="toolsGrid">
@@ -344,7 +441,7 @@
     <div id="builderPanel" class="builder-panel">
         <div class="builder-header">
             <h2>🔥 SERVER SIMULATOR 🔥</h2>
-            <button class="back-btn" id="closeBuilderBtn">← BACK</button>
+            <button class="back-btn" id="closeBuilderBtn">← BACK TO MENU</button>
         </div>
 
         <div class="row-2col">
@@ -364,7 +461,7 @@
         </div>
 
         <div class="input-group">
-            <h3>✨ EPIC TEMPLATES (10 Servers with many channels)</h3>
+            <h3>✨ EPIC TEMPLATES (10+ Servers with many channels)</h3>
             <div id="templatesList" style="display: flex; flex-wrap: wrap; gap: 8px;"></div>
         </div>
 
@@ -379,6 +476,7 @@
             <input type="text" id="guildIdInput" placeholder="🎯 Target Server ID">
         </div>
     </div>
+    <footer>NEXUS INFERNO 2099 • Build your dream server • All operations use Promise.all for maximum speed</footer>
 </div>
 <div id="toastMsg" class="toast-msg"></div>
 
@@ -386,129 +484,122 @@
     let mockData = { categories: [], channels: [] };
     let nextId = 1;
 
-    // ========== زخارف نصوص حقيقية (مو إيموجيات) ==========
+    // ========== زخارف نصوص ==========
     const textDecorations = [
-        "π", "∑", "∞", "√", "∫", "∆", "∇", "∂", "∏", "∈", "∉", "⊂", "⊆", "∪", "∩", "∅",
-        "α", "β", "γ", "δ", "ε", "ζ", "η", "θ", "λ", "μ", "ξ", "π", "ρ", "σ", "τ", "φ", "ψ", "ω",
-        "≅", "≈", "≠", "≤", "≥", "⊕", "⊗", "†", "‡", "•", "‣", "…", "←", "→", "↑", "↓", "↔",
-        "❤", "★", "☆", "✪", "✫", "✯", "⚡", "🔥", "💀", "🎮", "🤖", "📚", "🎵", "🚀", "👑"
+        "『』", "・", "│", "┃", "════════",
+        "，「", "⬩", "✦", "╭", "╰┈➤",
+        "➤", "𔒝", "✎﹏﹏﹏﹏", "𓆝 𓆟 𓆞 𓆝 𓆟", "⭑.ᐟ",
+        "╰⪼", "⫘⫘⫘⫘⫘", "☯", "⛏", "☠", "💭",
+        "⌗", "ᐟ", "◟", "꒰ ꒱", "▬▬ι══════ﺤ"
     ];
 
-    // ========== 10 تيمبليتات أسطورية (فيها رومات كثيييرة) ==========
+    // ========== 10+ تيمبليتات أسطورية ==========
     const templates = [
         { 
             name: "⚔️ GAMING EMPIRE", 
             categories: ["🎮 GAMES", "🗣️ VOICE", "📢 ANNOUNCE", "🏆 TOURNAMENTS", "🛒 TRADING"],
             channels: {
-                "🎮 GAMES": ["valorant", "fortnite", "lol", "cs2", "overwatch", "apex", "minecraft", "rocket-league"],
-                "🗣️ VOICE": ["general-chat", "looking-to-play", "competitive", "casual", "team-recruitment"],
-                "📢 ANNOUNCE": ["rules", "updates", "events", "giveaways", "partner-ads"],
+                "🎮 GAMES": ["valorant", "fortnite", "lol", "cs2", "overwatch", "apex", "minecraft"],
+                "🗣️ VOICE": ["general-chat", "looking-to-play", "competitive", "casual"],
+                "📢 ANNOUNCE": ["rules", "updates", "events", "giveaways"],
                 "🏆 TOURNAMENTS": ["sign-ups", "brackets", "prize-pool", "live-streams"],
-                "🛒 TRADING": ["selling", "buying", "price-checks", "reputation"]
+                "🛒 TRADING": ["selling", "buying", "price-checks"]
             }
         },
         {
             name: "🤖 AI & TECH HUB",
-            categories: ["🧠 AI CHAT", "🛠️ TOOLS", "📰 NEWS", "💻 CODING", "🔌 API"],
+            categories: ["🧠 AI CHAT", "🛠️ TOOLS", "📰 NEWS", "💻 CODING"],
             channels: {
-                "🧠 AI CHAT": ["gpt-talk", "midjourney", "stable-diffusion", "llama", "bard", "claude"],
-                "🛠️ TOOLS": ["ai-tools", "automation", "bots", "scripts", "tutorials"],
-                "📰 NEWS": ["ai-news", "tech-updates", "research-papers", "breakthroughs"],
-                "💻 CODING": ["python", "javascript", "c++", "rust", "webdev", "help-requests"],
-                "🔌 API": ["openai-api", "discord-api", "webhooks", "integrations"]
+                "🧠 AI CHAT": ["gpt-talk", "midjourney", "stable-diffusion", "llama"],
+                "🛠️ TOOLS": ["ai-tools", "automation", "bots", "scripts"],
+                "📰 NEWS": ["ai-news", "tech-updates", "research-papers"],
+                "💻 CODING": ["python", "javascript", "c++", "webdev", "help-requests"]
             }
         },
         {
             name: "🎵 MUSIC STUDIO",
-            categories: ["🎧 PRODUCTION", "🎤 COLLAB", "📀 RELEASES", "🎚️ MIXING", "🎸 INSTRUMENTS"],
+            categories: ["🎧 PRODUCTION", "🎤 COLLAB", "📀 RELEASES", "🎚️ MIXING"],
             channels: {
-                "🎧 PRODUCTION": ["beats", "sampling", "sound-design", "mastering", "feedback"],
+                "🎧 PRODUCTION": ["beats", "sampling", "sound-design", "mastering"],
                 "🎤 COLLAB": ["vocalists", "producers", "lyricists", "remix-contests"],
-                "📀 RELEASES": ["new-drops", "playlist-pitching", "promotion", "spotify-wrapped"],
-                "🎚️ MIXING": ["mix-critique", "templates", "plugins", "daw-discussion"],
-                "🎸 INSTRUMENTS": ["guitar", "piano", "drums", "synth", "gear-talk"]
+                "📀 RELEASES": ["new-drops", "playlist-pitching", "promotion"],
+                "🎚️ MIXING": ["mix-critique", "templates", "plugins"]
             }
         },
         {
             name: "📚 STUDY ZONE",
-            categories: ["📖 SUBJECTS", "🧘 FOCUS", "📝 ASSIGNMENTS", "🎓 EXAMS", "💡 RESOURCES"],
+            categories: ["📖 SUBJECTS", "🧘 FOCUS", "📝 ASSIGNMENTS", "🎓 EXAMS"],
             channels: {
-                "📖 SUBJECTS": ["mathematics", "programming", "physics", "chemistry", "biology", "history", "literature"],
+                "📖 SUBJECTS": ["mathematics", "programming", "physics", "chemistry", "biology"],
                 "🧘 FOCUS": ["study-with-me", "pomodoro", "motivation", "study-tips"],
-                "📝 ASSIGNMENTS": ["homework-help", "peer-review", "essay-writing", "group-projects"],
-                "🎓 EXAMS": ["sat-prep", "gcse", "university", "grad-school", "past-papers"],
-                "💡 RESOURCES": ["textbooks", "courses", "youtube-channels", "cheat-sheets", "apps"]
+                "📝 ASSIGNMENTS": ["homework-help", "peer-review", "essay-writing"],
+                "🎓 EXAMS": ["sat-prep", "gcse", "university", "past-papers"]
             }
         },
         {
             name: "🛒 CRYPTO TRADERS",
-            categories: ["📈 TRADING", "💎 SIGNALS", "📰 NEWS", "🔐 SECURITY", "💬 DISCUSSION"],
+            categories: ["📈 TRADING", "💎 SIGNALS", "📰 NEWS", "🔐 SECURITY"],
             channels: {
-                "📈 TRADING": ["btc", "eth", "sol", "altcoins", "futures", "options", "spot-trading"],
-                "💎 SIGNALS": ["premium-signals", "free-signals", "alpha-calls", "whale-alerts"],
-                "📰 NEWS": ["crypto-news", "regulation", "airdrops", "nft-updates"],
-                "🔐 SECURITY": ["scam-alerts", "wallet-security", "2fa", "cold-storage"],
-                "💬 DISCUSSION": ["general-chat", "technical-analysis", "fundamental-analysis", "memes"]
+                "📈 TRADING": ["btc", "eth", "sol", "altcoins", "futures"],
+                "💎 SIGNALS": ["premium-signals", "free-signals", "alpha-calls"],
+                "📰 NEWS": ["crypto-news", "regulation", "airdrops"],
+                "🔐 SECURITY": ["scam-alerts", "wallet-security", "2fa"]
             }
         },
         {
             name: "🎭 ANIME WORLD",
-            categories: ["🍥 SHONEN", "🌸 SEASONAL", "📺 RECOMMEND", "🎨 FANART", "📚 MANGA"],
+            categories: ["🍥 SHONEN", "🌸 SEASONAL", "📺 RECOMMEND", "🎨 FANART"],
             channels: {
-                "🍥 SHONEN": ["one-piece", "naruto", "bleach", "dragon-ball", "demon-slayer", "jujutsu-kaisen", "mha"],
-                "🌸 SEASONAL": ["winter-2025", "spring-2025", "summer-2025", "fall-2025", "most-anticipated"],
-                "📺 RECOMMEND": ["underrated", "classics", "movies", "top-tier", "guilty-pleasures"],
-                "🎨 FANART": ["digital-art", "traditional", "cosplay", "edits", "wallpapers"],
-                "📚 MANGA": ["weekly-chapters", "completed-series", "manhwa", "light-novels", "spoilers"]
+                "🍥 SHONEN": ["one-piece", "naruto", "bleach", "dragon-ball", "demon-slayer"],
+                "🌸 SEASONAL": ["winter-2025", "spring-2025", "summer-2025", "fall-2025"],
+                "📺 RECOMMEND": ["underrated", "classics", "movies", "top-tier"],
+                "🎨 FANART": ["digital-art", "traditional", "cosplay", "edits"]
             }
         },
         {
             name: "🚀 STARTUP HUB",
-            categories: ["💡 IDEAS", "🤝 NETWORKING", "💰 FUNDING", "📈 MARKETING", "⚖️ LEGAL"],
+            categories: ["💡 IDEAS", "🤝 NETWORKING", "💰 FUNDING", "📈 MARKETING"],
             channels: {
-                "💡 IDEAS": ["pitch-your-idea", "feedback", "validation", "market-research"],
-                "🤝 NETWORKING": ["founders", "developers", "designers", "marketers", "investors"],
-                "💰 FUNDING": ["vc-list", "angel-investors", "grants", "crowdfunding", "bootstrapping"],
-                "📈 MARKETING": ["growth-hacks", "seo", "social-media", "content-marketing", "ads"],
-                "⚖️ LEGAL": ["incorporation", "contracts", "ip-protection", "terms-of-service"]
+                "💡 IDEAS": ["pitch-your-idea", "feedback", "validation"],
+                "🤝 NETWORKING": ["founders", "developers", "designers", "investors"],
+                "💰 FUNDING": ["vc-list", "angel-investors", "grants", "crowdfunding"],
+                "📈 MARKETING": ["growth-hacks", "seo", "social-media", "content-marketing"]
             }
         },
         {
             name: "🎥 STREAMING",
-            categories: ["🎬 LIVE", "📹 CLIPS", "🛠️ TECH", "💬 COMMUNITY", "🤝 COLLAB"],
+            categories: ["🎬 LIVE", "📹 CLIPS", "🛠️ TECH", "💬 COMMUNITY"],
             channels: {
-                "🎬 LIVE": ["twitch", "kick", "youtube", "facebook-gaming", "live-schedule"],
-                "📹 CLIPS": ["highlights", "funny-moments", "fail-compilations", "best-plays"],
-                "🛠️ TECH": ["stream-setup", "obs-settings", "overlays", "alerts", "audio"],
-                "💬 COMMUNITY": ["chat", "suggestions", "emotes", "subscriber-chat"],
-                "🤝 COLLAB": ["collab-requests", "raid-train", "hosting", "networking"]
+                "🎬 LIVE": ["twitch", "kick", "youtube", "facebook-gaming"],
+                "📹 CLIPS": ["highlights", "funny-moments", "fail-compilations"],
+                "🛠️ TECH": ["stream-setup", "obs-settings", "overlays", "alerts"],
+                "💬 COMMUNITY": ["chat", "suggestions", "emotes", "subscriber-chat"]
             }
         },
         {
-            name: "🧘 WELLNESS",
-            categories: ["🧘 MEDITATION", "🥗 HEALTH", "🏋️ WORKOUT", "🧠 MENTAL", "💤 SLEEP"],
+            name: "✨ 𝐕𝐄𝐑𝐈𝐅𝐘 𝐒𝐄𝐑𝐕𝐄𝐑",
+            categories: ["「 ✦ VERIFY ✦ 」", "→﹐ ⛩ ﹒ text﹒⟢", "╰┈➤ˎWelcome!", "𝐖𝐄𝐋𝐂𝐎𝐌𝐄", "🗪 | ɢᴇɴᴇʀᴀʟ-ᴄʜᴀᴛ"],
             channels: {
-                "🧘 MEDITATION": ["daily-meditation", "guided-sessions", "mindfulness", "breathing-exercises"],
-                "🥗 HEALTH": ["recipes", "meal-prep", "nutrition", "hydration", "healthy-tips"],
-                "🏋️ WORKOUT": ["home-workouts", "gym-routines", "yoga", "calisthenics", "progress-pics"],
-                "🧠 MENTAL": ["therapy-talk", "journaling", "positivity", "stress-management", "self-care"],
-                "💤 SLEEP": ["sleep-tips", "insomnia-help", "dreams", "bedtime-routine"]
+                "「 ✦ VERIFY ✦ 」": ["verify", "captcha"],
+                "→﹐ ⛩ ﹒ text﹒⟢": ["chat", "general"],
+                "╰┈➤ˎWelcome!": ["welcome", "intro"],
+                "𝐖𝐄𝐋𝐂𝐎𝐌𝐄": ["rules", "announcements"],
+                "🗪 | ɢᴇɴᴇʀᴀʟ-ᴄʜᴀᴛ": ["voice-chat", "afk"]
             }
         },
         {
-            name: "🌍 TRAVEL",
-            categories: ["✈️ DESTINATIONS", "📸 PHOTOS", "💰 BUDGET", "🏨 ACCOMMODATION", "🍜 FOOD"],
+            name: "⚔️ 𝐃𝐄𝐒𝐈𝐆𝐍𝐄𝐑",
+            categories: ["👋 | WELCOME", "⩩﹕rules 📋﹒", "⌗ᆞ› text ꒰ ꒱", "◟♯ . / name . !", "▬▬ι══════ﺤ"],
             channels: {
-                "✈️ DESTINATIONS": ["europe", "asia", "north-america", "south-america", "africa", "australia"],
-                "📸 PHOTOS": ["travel-pics", "drone-shots", "sunset", "landscapes", "city-views"],
-                "💰 BUDGET": ["cheap-flights", "travel-hacking", "budget-tips", "currency-exchange"],
-                "🏨 ACCOMMODATION": ["hotels", "hostels", "airbnb", "camping", "house-sitting"],
-                "🍜 FOOD": ["street-food", "restaurants", "local-cuisine", "food-reviews", "recipes"]
+                "👋 | WELCOME": ["welcome"],
+                "⩩﹕rules 📋﹒": ["rules"],
+                "⌗ᆞ› text ꒰ ꒱": ["text"],
+                "◟♯ . / name . !": ["name"],
+                "▬▬ι══════ﺤ": ["voice"]
             }
         }
     ];
 
-    // تحميل تيمبليت
     function loadTemplate(template) {
         mockData = { categories: [], channels: [] };
         nextId = 1;
@@ -528,7 +619,7 @@
         }
         renderMockServer();
         updateSelectors();
-        showToast(`✅ Template loaded: ${template.name} with ${mockData.channels.length} channels!`);
+        showToast(`✅ Loaded: ${template.name} with ${mockData.channels.length} channels!`);
     }
 
     function updateSelectors() {
@@ -638,14 +729,12 @@
         setTimeout(() => toast.style.display = 'none', 2500);
     }
 
-    // إضافة زخرفة للنص
     function addDecoration(inputId, deco) {
         const input = document.getElementById(inputId);
         input.value += deco + ' ';
         input.focus();
     }
 
-    // BUILD
     async function buildServer(deleteFirst) {
         const token = document.getElementById('botTokenInput').value.trim();
         const guildId = document.getElementById('guildIdInput').value.trim();
@@ -667,7 +756,7 @@
         }
     }
 
-    // ========== Event Listeners ==========
+    // Event Listeners
     document.getElementById('enterBuilderBtn').onclick = () => {
         document.getElementById('toolsGrid').style.display = 'none';
         document.getElementById('builderPanel').style.display = 'block';
@@ -699,7 +788,7 @@
     document.getElementById('buildRealBtn').onclick = () => buildServer(false);
     document.getElementById('buildRealDeleteBtn').onclick = () => buildServer(true);
 
-    // تحميل التيمبليتات
+    // Load templates
     const templatesDiv = document.getElementById('templatesList');
     templates.forEach(t => {
         const btn = document.createElement('span');
@@ -709,10 +798,10 @@
         templatesDiv.appendChild(btn);
     });
 
-    // زخارف للكاتيجوري
+    // Decorations
     const decoCat = document.getElementById('decoCat');
     const decoCh = document.getElementById('decoCh');
-    textDecorations.slice(0, 30).forEach(deco => {
+    textDecorations.forEach(deco => {
         const span = document.createElement('span');
         span.className = 'deco-item';
         span.innerText = deco;
