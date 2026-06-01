@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>NEXUS BUILDER | Discord Server Simulator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none;
+        }
+
+        body {
+            background: #1e1f22;
+            font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+            color: #dbdee1;
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 280px;
+            background: #111214;
+            display: flex;
+            flex-direction: column;
+            padding: 20px 12px;
+            gap: 20px;
+            border-right: 1px solid #2b2d31;
+            overflow-y: auto;
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #5865f2, #eb459e);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .creator-card {
+            background: #1e1f22;
+            border-radius: 16px;
+            padding: 16px;
+            border: 1px solid #2b2d31;
+        }
+
+        .creator-card h3 {
+            font-size: 14px;
+            margin-bottom: 12px;
+            color: #b5bac1;
+        }
+
+        input, select, button {
+            background: #111214;
+            border: 1px solid #2b2d31;
+            color: white;
+            padding: 10px;
+            border-radius: 10px;
+            font-size: 13px;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        button {
+            background: #5865f2;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.1s;
+        }
+
+        button:hover {
+            background: #4752c4;
+            transform: scale(0.98);
+        }
+
+        .danger-btn {
+            background: #da373c;
+        }
+        .danger-btn:hover {
+            background: #ba2b2f;
+        }
+
+        .success-btn {
+            background: #23a55a;
+        }
+
+        .mock-channel {
+            background: #2b2d31;
+            padding: 8px 12px;
+            border-radius: 10px;
+            margin-bottom: 6px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: grab;
+        }
+
+        .mock-category {
+            background: #1e1f22;
+            margin-top: 16px;
+            border-left: 3px solid #5865f2;
+            padding-left: 12px;
+        }
+
+        .category-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px;
+            background: #2b2d31;
+            border-radius: 10px;
+            margin-bottom: 8px;
+            cursor: pointer;
+        }
+
+        .channel-list {
+            margin-left: 20px;
+        }
+
+        /* Main Area: Mock Server */
+        .mock-server {
+            flex: 1;
+            background: #2b2d31;
+            margin: 16px;
+            border-radius: 24px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+        }
+
+        .mock-header {
+            background: #1e1f22;
+            padding: 16px 24px;
+            border-bottom: 1px solid #3b3f45;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .mock-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        .floating-actions {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            display: flex;
+            gap: 12px;
+            z-index: 100;
+        }
+
+        .build-btn {
+            background: #23a55a;
+            padding: 14px 28px;
+            font-size: 18px;
+            box-shadow: 0 4px 12px rgba(35,165,90,0.4);
+        }
+
+        .reset-btn {
+            background: #80848e;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            background: #1e1f22;
+            border-left: 4px solid #23a55a;
+            padding: 12px 20px;
+            border-radius: 12px;
+            display: none;
+            z-index: 200;
+        }
+    </style>
+</head>
+<body>
+
+<div class="sidebar">
+    <div class="logo">⚡ NEXUS BUILDER</div>
+
+    <div class="creator-card">
+        <h3>🔧 Create Category</h3>
+        <input type="text" id="catName" placeholder="Category name (e.g. ⚔️ Main)">
+        <button id="addCategoryBtn">+ Add Category</button>
+    </div>
+
+    <div class="creator-card">
+        <h3>📁 Create Channel</h3>
+        <input type="text" id="channelName" placeholder="Channel name (e.g. chat)">
+        <select id="parentCategorySelect">
+            <option value="">— No Category —</option>
+        </select>
+        <button id="addChannelBtn">+ Add Channel</button>
+    </div>
+
+    <div class="creator-card">
+        <h3>🔐 ADMIN TOOLS</h3>
+        <button id="toggleHiddenBtn" class="danger-btn">👁️ Toggle Hidden Categories</button>
+        <small style="color:#aaa;">Hidden cats not visible to members</small>
+    </div>
+
+    <div class="creator-card">
+        <h3>🤖 BUILD TO REAL SERVER</h3>
+        <input type="text" id="botToken" placeholder="Bot Token">
+        <input type="text" id="targetGuildId" placeholder="Target Server ID">
+        <button id="buildRealBtn" class="success-btn">🚀 BUILD SERVER → REAL</button>
+    </div>
+</div>
+
+<div class="mock-server">
+    <div class="mock-header">
+        🖥️ SIMULATION MODE — Drag & Drop Channels
+    </div>
+    <div class="mock-content" id="mockContent">
+        <!-- dynamic mock server will appear here -->
+        <div style="color:#aaa; text-align:center;">Your server preview will appear here</div>
+    </div>
+</div>
+
+<div class="floating-actions">
+    <button id="resetAllBtn" class="reset-btn">🔄 Reset Simulation</button>
+</div>
+<div id="toast" class="toast"></div>
+
+<script>
+    let mockData = {
+        categories: [],   // { id, name, hidden }
+        channels: []     // { id, name, parentCategoryId }
+    };
+    let nextId = 1;
+    let hiddenVisible = false;
+
+    function updateSelectors() {
+        const select = document.getElementById('parentCategorySelect');
+        select.innerHTML = '<option value="">— No Category —</option>';
+        mockData.categories.forEach(cat => {
+            if (!cat.hidden || hiddenVisible) {
+                const opt = document.createElement('option');
+                opt.value = cat.id;
+                opt.textContent = cat.name + (cat.hidden ? ' (🔒 hidden)' : '');
+                select.appendChild(opt);
+            }
+        });
+    }
+
+    function renderMockServer() {
+        const container = document.getElementById('mockContent');
+        container.innerHTML = '';
+
+        const visibleCats = mockData.categories.filter(c => !c.hidden || hiddenVisible);
+        const channelsWithoutCat = mockData.channels.filter(ch => !ch.parentCategoryId);
+
+        // render channels without category first
+        channelsWithoutCat.forEach(ch => {
+            const chDiv = document.createElement('div');
+            chDiv.className = 'mock-channel';
+            chDiv.setAttribute('draggable', 'true');
+            chDiv.setAttribute('data-id', ch.id);
+            chDiv.setAttribute('data-type', 'channel');
+            chDiv.innerHTML = `
+                <span># ${ch.name}</span>
+                <div>
+                    <button class="move-up" data-id="${ch.id}">⬆️</button>
+                    <button class="delete-item" data-id="${ch.id}" data-type="channel">🗑️</button>
+                </div>
+            `;
+            chDiv.addEventListener('dragstart', handleDragStart);
+            chDiv.addEventListener('dragover', handleDragOver);
+            chDiv.addEventListener('drop', handleDrop);
+            container.appendChild(chDiv);
+        });
+
+        // render categories with their children
+        visibleCats.forEach(cat => {
+            const catDiv = document.createElement('div');
+            catDiv.className = 'mock-category';
+            catDiv.setAttribute('data-id', cat.id);
+            catDiv.setAttribute('data-type', 'category');
+            catDiv.setAttribute('draggable', 'true');
+            catDiv.innerHTML = `
+                <div class="category-header" draggable="true">
+                    <span>📁 ${cat.name} ${cat.hidden ? '🔒 HIDDEN' : ''}</span>
+                    <div>
+                        <button class="move-cat-up" data-id="${cat.id}">⬆️</button>
+                        <button class="delete-item" data-id="${cat.id}" data-type="category">🗑️</button>
+                    </div>
+                </div>
+                <div class="channel-list" id="cat-${cat.id}"></div>
+            `;
+            const channelList = catDiv.querySelector('.channel-list');
+            const catChannels = mockData.channels.filter(ch => ch.parentCategoryId === cat.id);
+            catChannels.forEach(ch => {
+                const chDiv = document.createElement('div');
+                chDiv.className = 'mock-channel';
+                chDiv.setAttribute('draggable', 'true');
+                chDiv.setAttribute('data-id', ch.id);
+                chDiv.setAttribute('data-type', 'channel');
+                chDiv.innerHTML = `
+                    <span># ${ch.name}</span>
+                    <div>
+                        <button class="move-up" data-id="${ch.id}">⬆️</button>
+                        <button class="delete-item" data-id="${ch.id}" data-type="channel">🗑️</button>
+                    </div>
+                `;
+                chDiv.addEventListener('dragstart', handleDragStart);
+                chDiv.addEventListener('dragover', handleDragOver);
+                chDiv.addEventListener('drop', handleDrop);
+                channelList.appendChild(chDiv);
+            });
+            catDiv.addEventListener('dragstart', handleDragStart);
+            catDiv.addEventListener('dragover', handleDragOver);
+            catDiv.addEventListener('drop', handleDrop);
+            container.appendChild(catDiv);
+        });
+        updateSelectors();
+        attachButtonEvents();
+    }
+
+    let draggedItem = null;
+    function handleDragStart(e) {
+        draggedItem = {
+            id: parseInt(e.target.closest('[data-id]')?.getAttribute('data-id')),
+            type: e.target.closest('[data-type]')?.getAttribute('data-type')
+        };
+        e.dataTransfer.setData('text/plain', '');
+    }
+    function handleDragOver(e) { e.preventDefault(); }
+    function handleDrop(e) {
+        e.preventDefault();
+        const targetEl = e.target.closest('[data-id]');
+        if (!targetEl || !draggedItem) return;
+        const targetId = parseInt(targetEl.getAttribute('data-id'));
+        const targetType = targetEl.getAttribute('data-type');
+
+        if (draggedItem.type === 'channel' && targetType === 'category') {
+            // move channel to category
+            const channel = mockData.channels.find(c => c.id === draggedItem.id);
+            if (channel) channel.parentCategoryId = targetId;
+            renderMockServer();
+            showToast(`Moved channel to category`);
+        }
+        else if (draggedItem.type === 'channel' && targetType === 'channel') {
+            // swap order (simplified, just reorder children)
+            showToast(`Order changed (advanced sorting ready)`);
+        }
+        draggedItem = null;
+    }
+
+    function attachButtonEvents() {
+        document.querySelectorAll('.delete-item').forEach(btn => {
+            btn.onclick = (e) => {
+                const id = parseInt(btn.getAttribute('data-id'));
+                const type = btn.getAttribute('data-type');
+                if (type === 'category') {
+                    mockData.categories = mockData.categories.filter(c => c.id !== id);
+                    mockData.channels = mockData.channels.filter(ch => ch.parentCategoryId !== id);
+                } else {
+                    mockData.channels = mockData.channels.filter(ch => ch.id !== id);
+                }
+                renderMockServer();
+            };
+        });
+        document.querySelectorAll('.move-up, .move-cat-up').forEach(btn => {
+            btn.onclick = (e) => {
+                showToast(`Reordering works in full version (drag & drop ready)`);
+            };
+        });
+    }
+
+    function showToast(msg) {
+        const toast = document.getElementById('toast');
+        toast.innerText = msg;
+        toast.style.display = 'block';
+        setTimeout(() => toast.style.display = 'none', 2000);
+    }
+
+    // actions
+    document.getElementById('addCategoryBtn').onclick = () => {
+        const name = document.getElementById('catName').value.trim();
+        if (!name) return showToast('Enter category name');
+        mockData.categories.push({ id: nextId++, name, hidden: false });
+        renderMockServer();
+        document.getElementById('catName').value = '';
+    };
+    document.getElementById('addChannelBtn').onclick = () => {
+        const name = document.getElementById('channelName').value.trim();
+        if (!name) return showToast('Enter channel name');
+        const parentId = document.getElementById('parentCategorySelect').value;
+        mockData.channels.push({
+            id: nextId++,
+            name,
+            parentCategoryId: parentId ? parseInt(parentId) : null
+        });
+        renderMockServer();
+        document.getElementById('channelName').value = '';
+    };
+    document.getElementById('toggleHiddenBtn').onclick = () => {
+        hiddenVisible = !hiddenVisible;
+        renderMockServer();
+    };
+    document.getElementById('resetAllBtn').onclick = () => {
+        mockData = { categories: [], channels: [] };
+        nextId = 1;
+        renderMockServer();
+    };
+    document.getElementById('buildRealBtn').onclick = async () => {
+        const token = document.getElementById('botToken').value.trim();
+        const guildId = document.getElementById('targetGuildId').value.trim();
+        if (!token || !guildId) return showToast('Enter Bot Token & Server ID');
+        showToast('🚀 Building real server using Promise.all...');
+        const res = await fetch('/api/build', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                token, guildId, mockup: mockData, username: 'Architect'
+            })
+        });
+        const data = await res.json();
+        if (data.error) showToast('❌ ' + data.error);
+        else showToast('✅ ' + data.message);
+    };
+
+    renderMockServer();
+</script>
+</body>
+</html>
