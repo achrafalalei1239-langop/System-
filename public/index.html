@@ -2,435 +2,482 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>NEXUS BUILDER | Discord Server Simulator</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEXUS INFERNO | Legendary Server Builder</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            user-select: none;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            background: #1e1f22;
-            font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
-            color: #dbdee1;
-            display: flex;
-            height: 100vh;
-            overflow: hidden;
+            background: radial-gradient(circle at 20% 30%, #0a0f1e, #03060c);
+            font-family: 'Poppins', 'Inter', system-ui, sans-serif;
+            min-height: 100vh;
+            color: #fff;
+            overflow-x: hidden;
         }
 
-        /* Sidebar */
-        .sidebar {
-            width: 280px;
-            background: #111214;
-            display: flex;
-            flex-direction: column;
-            padding: 20px 12px;
-            gap: 20px;
-            border-right: 1px solid #2b2d31;
-            overflow-y: auto;
-        }
-
-        .logo {
-            font-size: 22px;
-            font-weight: 800;
-            background: linear-gradient(135deg, #5865f2, #eb459e);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            text-align: center;
-            margin-bottom: 10px;
-        }
-
-        .creator-card {
-            background: #1e1f22;
-            border-radius: 16px;
-            padding: 16px;
-            border: 1px solid #2b2d31;
-        }
-
-        .creator-card h3 {
-            font-size: 14px;
-            margin-bottom: 12px;
-            color: #b5bac1;
-        }
-
-        input, select, button {
-            background: #111214;
-            border: 1px solid #2b2d31;
-            color: white;
-            padding: 10px;
-            border-radius: 10px;
-            font-size: 13px;
+        /* أنيميشن خلفية نارية */
+        .fire-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
-            margin-bottom: 10px;
+            height: 100%;
+            background: repeating-linear-gradient(45deg, rgba(255,80,40,0.05) 0px, rgba(255,80,40,0.05) 2px, transparent 2px, transparent 8px);
+            pointer-events: none;
+            z-index: 0;
         }
 
-        button {
-            background: #5865f2;
-            border: none;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.1s;
-        }
-
-        button:hover {
-            background: #4752c4;
-            transform: scale(0.98);
-        }
-
-        .danger-btn {
-            background: #da373c;
-        }
-        .danger-btn:hover {
-            background: #ba2b2f;
-        }
-
-        .success-btn {
-            background: #23a55a;
-        }
-
-        .mock-channel {
-            background: #2b2d31;
-            padding: 8px 12px;
-            border-radius: 10px;
-            margin-bottom: 6px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            cursor: grab;
-        }
-
-        .mock-category {
-            background: #1e1f22;
-            margin-top: 16px;
-            border-left: 3px solid #5865f2;
-            padding-left: 12px;
-        }
-
-        .category-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 8px;
-            background: #2b2d31;
-            border-radius: 10px;
-            margin-bottom: 8px;
-            cursor: pointer;
-        }
-
-        .channel-list {
-            margin-left: 20px;
-        }
-
-        /* Main Area: Mock Server */
-        .mock-server {
-            flex: 1;
-            background: #2b2d31;
-            margin: 16px;
-            border-radius: 24px;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.5);
-        }
-
-        .mock-header {
-            background: #1e1f22;
-            padding: 16px 24px;
-            border-bottom: 1px solid #3b3f45;
-            font-weight: bold;
-            font-size: 18px;
-        }
-
-        .mock-content {
-            flex: 1;
-            overflow-y: auto;
+        .container {
+            position: relative;
+            z-index: 2;
+            max-width: 1400px;
+            margin: 0 auto;
             padding: 20px;
         }
 
-        .floating-actions {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            display: flex;
-            gap: 12px;
-            z-index: 100;
+        /* الهيدر الأسطوري */
+        .hero {
+            text-align: center;
+            padding: 50px 20px;
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(12px);
+            border-radius: 60px;
+            margin-bottom: 50px;
+            border: 1px solid rgba(255,80,40,0.5);
+            box-shadow: 0 0 50px rgba(255,60,30,0.3);
+        }
+        .hero h1 {
+            font-size: 70px;
+            background: linear-gradient(135deg, #ff4d4d, #ff9f4a, #ff4d4d);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 20px rgba(255,77,77,0.5);
+        }
+        .hero p {
+            font-size: 20px;
+            color: #ccc;
+            margin-top: 15px;
+        }
+        .enter-btn {
+            background: linear-gradient(135deg, #ff4d4d, #ff2a2a);
+            border: none;
+            padding: 18px 50px;
+            font-size: 24px;
+            font-weight: bold;
+            border-radius: 50px;
+            margin-top: 35px;
+            cursor: pointer;
+            transition: 0.2s;
+            box-shadow: 0 0 20px #ff4d4d;
+            color: white;
+        }
+        .enter-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 40px #ff4d4d;
         }
 
-        .build-btn {
-            background: #23a55a;
-            padding: 14px 28px;
-            font-size: 18px;
-            box-shadow: 0 4px 12px rgba(35,165,90,0.4);
+        /* كروت الأدوات */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        .tool-card {
+            background: rgba(15, 20, 30, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            padding: 30px;
+            text-align: center;
+            border: 1px solid rgba(255,100,50,0.4);
+            transition: 0.2s;
+            cursor: pointer;
+        }
+        .tool-card:hover {
+            transform: translateY(-10px);
+            border-color: #ff4d4d;
+            box-shadow: 0 15px 35px rgba(255,77,77,0.2);
+        }
+        .tool-icon {
+            font-size: 60px;
+            margin-bottom: 20px;
+        }
+        .tool-card h3 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        .tool-card p {
+            color: #aaa;
         }
 
-        .reset-btn {
-            background: #80848e;
-        }
-
-        .toast {
-            position: fixed;
-            bottom: 100px;
-            right: 30px;
-            background: #1e1f22;
-            border-left: 4px solid #23a55a;
-            padding: 12px 20px;
-            border-radius: 12px;
+        /* وضع البناء */
+        .builder-panel {
             display: none;
-            z-index: 200;
+            background: rgba(10,15,25,0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 40px;
+            padding: 30px;
+            margin-top: 40px;
+            border: 1px solid #ff4d4d;
+        }
+        .builder-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+        .back-btn {
+            background: #2a2f3f;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 40px;
+            cursor: pointer;
+            color: white;
+        }
+        .mock-server-view {
+            background: #111418;
+            border-radius: 30px;
+            padding: 20px;
+            min-height: 500px;
+        }
+        .category-item {
+            margin-top: 20px;
+            border-left: 4px solid #ff4d4d;
+            padding-left: 15px;
+        }
+        .category-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #1a1f2a;
+            padding: 12px;
+            border-radius: 20px;
+            margin-bottom: 10px;
+        }
+        .channel-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #0f1219;
+            padding: 8px 15px;
+            border-radius: 15px;
+            margin: 8px 0 8px 25px;
+        }
+        .privacy-btn {
+            background: #2ea043;
+            border: none;
+            padding: 5px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+        .privacy-btn.admin-only { background: #da373c; }
+        .delete-channel-btn, .delete-cat-btn {
+            background: #3b3f45;
+            border: none;
+            padding: 4px 10px;
+            border-radius: 10px;
+            margin-left: 8px;
+            cursor: pointer;
+        }
+        .templates-section {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin: 20px 0;
+        }
+        .template-badge {
+            background: #1e2434;
+            padding: 10px 20px;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: 0.1s;
+        }
+        .template-badge:hover { background: #ff4d4d; }
+        .decoration-list {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin: 15px 0;
+        }
+        .decoration {
+            background: #2a2f3f;
+            padding: 8px 15px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-family: monospace;
+        }
+        .build-actions {
+            display: flex;
+            gap: 20px;
+            margin-top: 30px;
+            justify-content: center;
+        }
+        .build-real-btn {
+            background: #23a55a;
+            padding: 15px 35px;
+            font-size: 18px;
+            border: none;
+            border-radius: 50px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .delete-then-build {
+            background: #da373c;
         }
     </style>
 </head>
 <body>
-
-<div class="sidebar">
-    <div class="logo">⚡ NEXUS BUILDER</div>
-
-    <div class="creator-card">
-        <h3>🔧 Create Category</h3>
-        <input type="text" id="catName" placeholder="Category name (e.g. ⚔️ Main)">
-        <button id="addCategoryBtn">+ Add Category</button>
+<div class="fire-bg"></div>
+<div class="container">
+    <div class="hero">
+        <h1>⚡ NEXUS INFERNO ⚡</h1>
+        <p>Build Legendary Discord Servers • Hidden Roles • Epic Templates</p>
+        <button class="enter-btn" id="enterBuilderBtn">🔥 ENTER THE BUILDER 🔥</button>
     </div>
 
-    <div class="creator-card">
-        <h3>📁 Create Channel</h3>
-        <input type="text" id="channelName" placeholder="Channel name (e.g. chat)">
-        <select id="parentCategorySelect">
-            <option value="">— No Category —</option>
-        </select>
-        <button id="addChannelBtn">+ Add Channel</button>
+    <div class="tools-grid" id="toolsGrid">
+        <div class="tool-card" data-tool="builder">
+            <div class="tool-icon">🏗️</div>
+            <h3>Server Builder</h3>
+            <p>Build your dream server with drag & drop, hidden categories, and real-time simulation</p>
+        </div>
     </div>
 
-    <div class="creator-card">
-        <h3>🔐 ADMIN TOOLS</h3>
-        <button id="toggleHiddenBtn" class="danger-btn">👁️ Toggle Hidden Categories</button>
-        <small style="color:#aaa;">Hidden cats not visible to members</small>
-    </div>
+    <!-- لوحة البناء -->
+    <div id="builderPanel" class="builder-panel">
+        <div class="builder-header">
+            <h2>🔥 SERVER SIMULATOR 🔥</h2>
+            <button class="back-btn" id="closeBuilderBtn">← BACK</button>
+        </div>
 
-    <div class="creator-card">
-        <h3>🤖 BUILD TO REAL SERVER</h3>
-        <input type="text" id="botToken" placeholder="Bot Token">
-        <input type="text" id="targetGuildId" placeholder="Target Server ID">
-        <button id="buildRealBtn" class="success-btn">🚀 BUILD SERVER → REAL</button>
+        <div style="display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 20px;">
+            <div style="flex: 1; background: #0a0f1a; padding: 20px; border-radius: 25px;">
+                <h3>➕ Create Category</h3>
+                <input type="text" id="catName" placeholder="Category name" style="width:100%; padding:10px; margin:10px 0; border-radius:15px;">
+                <button id="addCatBtn" style="background:#5865f2; padding:10px; width:100%; border-radius:20px;">+ Add</button>
+            </div>
+            <div style="flex: 1; background: #0a0f1a; padding: 20px; border-radius: 25px;">
+                <h3>📁 Create Channel</h3>
+                <input type="text" id="chName" placeholder="Channel name" style="width:100%; padding:10px; margin:10px 0; border-radius:15px;">
+                <select id="parentSelect" style="width:100%; padding:10px; border-radius:15px;"></select>
+                <button id="addChBtn" style="background:#5865f2; padding:10px; width:100%; margin-top:10px;">+ Add</button>
+            </div>
+            <div style="flex: 1; background: #0a0f1a; padding: 20px; border-radius: 25px;">
+                <h3>✨ Templates & Decorations</h3>
+                <div class="templates-section" id="templatesList"></div>
+                <div class="decoration-list" id="decorationsList"></div>
+            </div>
+        </div>
+
+        <div class="mock-server-view" id="mockServerView"></div>
+
+        <div class="build-actions">
+            <button id="buildRealBtn" class="build-real-btn">🚀 BUILD (Keep existing)</button>
+            <button id="buildRealDeleteBtn" class="build-real-btn delete-then-build">💀 DELETE ALL & BUILD</button>
+        </div>
+        <div style="margin-top: 15px; text-align: center;">
+            <input type="text" id="botTokenInput" placeholder="Bot Token" style="padding:10px; width:300px; border-radius:30px;">
+            <input type="text" id="guildIdInput" placeholder="Target Server ID" style="padding:10px; width:200px; border-radius:30px;">
+        </div>
     </div>
 </div>
-
-<div class="mock-server">
-    <div class="mock-header">
-        🖥️ SIMULATION MODE — Drag & Drop Channels
-    </div>
-    <div class="mock-content" id="mockContent">
-        <!-- dynamic mock server will appear here -->
-        <div style="color:#aaa; text-align:center;">Your server preview will appear here</div>
-    </div>
-</div>
-
-<div class="floating-actions">
-    <button id="resetAllBtn" class="reset-btn">🔄 Reset Simulation</button>
-</div>
-<div id="toast" class="toast"></div>
 
 <script>
-    let mockData = {
-        categories: [],   // { id, name, hidden }
-        channels: []     // { id, name, parentCategoryId }
-    };
+    let mockData = { categories: [], channels: [] };
     let nextId = 1;
-    let hiddenVisible = false;
+
+    // 10 تيمبليتات أسطورية
+    const templates = [
+        { name: "⚔️ Gaming Empire", categories: ["🎮 GAMES", "🗣️ VOICE", "📢 ANNOUNCE"], channels: { "🎮 GAMES": ["valorant", "fortnite", "lol"], "🗣️ VOICE": ["general", "competitive"], "📢 ANNOUNCE": ["rules", "updates"] } },
+        { name: "🤖 AI Hub", categories: ["🧠 AI CHAT", "🛠️ TOOLS"], channels: { "🧠 AI CHAT": ["gpt-talk", "midjourney"], "🛠️ TOOLS": ["bot-commands", "api-test"] } },
+        { name: "🎵 Music Studio", categories: ["🎧 MUSIC", "🎤 COLLAB"], channels: { "🎧 MUSIC": ["beats", "lyrics"], "🎤 COLLAB": ["producers", "artists"] } },
+        { name: "📚 Study Zone", categories: ["📖 SUBJECTS", "🧘 FOCUS"], channels: { "📖 SUBJECTS": ["math", "programming"], "🧘 FOCUS": ["study-with-me", "resources"] } },
+        { name: "🛒 Crypto Traders", categories: ["📈 TRADING", "💎 SIGNALS"], channels: { "📈 TRADING": ["btc", "eth", "sol"], "💎 SIGNALS": ["premium", "discussion"] } },
+        { name: "🎭 Anime World", categories: ["🍥 SHONEN", "🌸 SEASONAL"], channels: { "🍥 SHONEN": ["one-piece", "naruto"], "🌸 SEASONAL": ["new-episodes", "recommend"] } },
+        { name: "🚀 Startup Hub", categories: ["💡 IDEAS", "🤝 NETWORKING"], channels: { "💡 IDEAS": ["pitch", "feedback"], "🤝 NETWORKING": ["founders", "investors"] } },
+        { name: "🎥 Streaming", categories: ["🎬 LIVE", "📹 CLIPS"], channels: { "🎬 LIVE": ["twitch", "kick"], "📹 CLIPS": ["highlights", "editing"] } },
+        { name: "🧘 Wellness", categories: ["🧘 MEDITATION", "🥗 HEALTH"], channels: { "🧘 MEDITATION": ["daily-checkin", "mindfulness"], "🥗 HEALTH": ["recipes", "workout"] } },
+        { name: "🌍 Travel", categories: ["✈️ DESTINATIONS", "📸 PHOTOS"], channels: { "✈️ DESTINATIONS": ["europe", "asia"], "📸 PHOTOS": ["travel-pics", "tips"] } }
+    ];
+
+    const decorations = ["✨", "🔥", "💀", "🎮", "🤖", "⚡", "🍕", "🎵", "📚", "🚀", "💎", "🌸", "💡", "🎬", "🧘", "🌍", "🏰", "👑", "⭐", "🌀"];
+
+    function loadTemplate(template) {
+        mockData = { categories: [], channels: [] };
+        nextId = 1;
+        const catIdMap = {};
+        for (const catName of template.categories) {
+            const id = nextId++;
+            mockData.categories.push({ id, name: catName, hidden: false });
+            catIdMap[catName] = id;
+        }
+        for (const [catName, chList] of Object.entries(template.channels)) {
+            const parentId = catIdMap[catName];
+            if (parentId) {
+                for (const chName of chList) {
+                    mockData.channels.push({ id: nextId++, name: chName, parentCategoryId: parentId, hidden: false });
+                }
+            }
+        }
+        renderMockServer();
+        updateSelectors();
+    }
 
     function updateSelectors() {
-        const select = document.getElementById('parentCategorySelect');
+        const select = document.getElementById('parentSelect');
         select.innerHTML = '<option value="">— No Category —</option>';
         mockData.categories.forEach(cat => {
-            if (!cat.hidden || hiddenVisible) {
-                const opt = document.createElement('option');
-                opt.value = cat.id;
-                opt.textContent = cat.name + (cat.hidden ? ' (🔒 hidden)' : '');
-                select.appendChild(opt);
-            }
+            const opt = document.createElement('option');
+            opt.value = cat.id;
+            opt.textContent = cat.name;
+            select.appendChild(opt);
         });
+    }
+
+    function toggleChannelPrivacy(channelId) {
+        const ch = mockData.channels.find(c => c.id === channelId);
+        if (ch) ch.hidden = !ch.hidden;
+        renderMockServer();
+    }
+
+    function toggleCategoryPrivacy(catId) {
+        const cat = mockData.categories.find(c => c.id === catId);
+        if (cat) cat.hidden = !cat.hidden;
+        renderMockServer();
     }
 
     function renderMockServer() {
-        const container = document.getElementById('mockContent');
+        const container = document.getElementById('mockServerView');
         container.innerHTML = '';
-
-        const visibleCats = mockData.categories.filter(c => !c.hidden || hiddenVisible);
+        const visibleCats = mockData.categories;
         const channelsWithoutCat = mockData.channels.filter(ch => !ch.parentCategoryId);
-
-        // render channels without category first
         channelsWithoutCat.forEach(ch => {
-            const chDiv = document.createElement('div');
-            chDiv.className = 'mock-channel';
-            chDiv.setAttribute('draggable', 'true');
-            chDiv.setAttribute('data-id', ch.id);
-            chDiv.setAttribute('data-type', 'channel');
-            chDiv.innerHTML = `
-                <span># ${ch.name}</span>
-                <div>
-                    <button class="move-up" data-id="${ch.id}">⬆️</button>
-                    <button class="delete-item" data-id="${ch.id}" data-type="channel">🗑️</button>
-                </div>
-            `;
-            chDiv.addEventListener('dragstart', handleDragStart);
-            chDiv.addEventListener('dragover', handleDragOver);
-            chDiv.addEventListener('drop', handleDrop);
-            container.appendChild(chDiv);
+            const div = document.createElement('div');
+            div.className = 'channel-item';
+            div.innerHTML = `<span># ${ch.name} ${ch.hidden ? '🔒' : '👁️'}</span>
+                <div><button class="privacy-btn ${ch.hidden ? 'admin-only' : ''}" data-id="${ch.id}" data-type="channel">${ch.hidden ? 'ADMIN ONLY' : 'PUBLIC'}</button>
+                <button class="delete-channel-btn" data-id="${ch.id}">🗑️</button></div>`;
+            container.appendChild(div);
         });
-
-        // render categories with their children
         visibleCats.forEach(cat => {
             const catDiv = document.createElement('div');
-            catDiv.className = 'mock-category';
-            catDiv.setAttribute('data-id', cat.id);
-            catDiv.setAttribute('data-type', 'category');
-            catDiv.setAttribute('draggable', 'true');
-            catDiv.innerHTML = `
-                <div class="category-header" draggable="true">
-                    <span>📁 ${cat.name} ${cat.hidden ? '🔒 HIDDEN' : ''}</span>
-                    <div>
-                        <button class="move-cat-up" data-id="${cat.id}">⬆️</button>
-                        <button class="delete-item" data-id="${cat.id}" data-type="category">🗑️</button>
-                    </div>
-                </div>
-                <div class="channel-list" id="cat-${cat.id}"></div>
-            `;
-            const channelList = catDiv.querySelector('.channel-list');
+            catDiv.className = 'category-item';
+            catDiv.innerHTML = `<div class="category-title"><span>📁 ${cat.name} ${cat.hidden ? '🔒' : '🌍'}</span>
+                <div><button class="privacy-btn ${cat.hidden ? 'admin-only' : ''}" data-id="${cat.id}" data-type="category">${cat.hidden ? 'ADMIN ONLY' : 'PUBLIC'}</button>
+                <button class="delete-cat-btn" data-id="${cat.id}">🗑️</button></div></div><div id="ch-${cat.id}"></div>`;
+            const childContainer = catDiv.querySelector(`#ch-${cat.id}`);
             const catChannels = mockData.channels.filter(ch => ch.parentCategoryId === cat.id);
             catChannels.forEach(ch => {
                 const chDiv = document.createElement('div');
-                chDiv.className = 'mock-channel';
-                chDiv.setAttribute('draggable', 'true');
-                chDiv.setAttribute('data-id', ch.id);
-                chDiv.setAttribute('data-type', 'channel');
-                chDiv.innerHTML = `
-                    <span># ${ch.name}</span>
-                    <div>
-                        <button class="move-up" data-id="${ch.id}">⬆️</button>
-                        <button class="delete-item" data-id="${ch.id}" data-type="channel">🗑️</button>
-                    </div>
-                `;
-                chDiv.addEventListener('dragstart', handleDragStart);
-                chDiv.addEventListener('dragover', handleDragOver);
-                chDiv.addEventListener('drop', handleDrop);
-                channelList.appendChild(chDiv);
+                chDiv.className = 'channel-item';
+                chDiv.innerHTML = `<span># ${ch.name} ${ch.hidden ? '🔒' : '👁️'}</span>
+                    <div><button class="privacy-btn ${ch.hidden ? 'admin-only' : ''}" data-id="${ch.id}" data-type="channel">${ch.hidden ? 'ADMIN ONLY' : 'PUBLIC'}</button>
+                    <button class="delete-channel-btn" data-id="${ch.id}">🗑️</button></div>`;
+                childContainer.appendChild(chDiv);
             });
-            catDiv.addEventListener('dragstart', handleDragStart);
-            catDiv.addEventListener('dragover', handleDragOver);
-            catDiv.addEventListener('drop', handleDrop);
             container.appendChild(catDiv);
         });
-        updateSelectors();
-        attachButtonEvents();
+        attachPrivacyEvents();
+        attachDeleteEvents();
     }
 
-    let draggedItem = null;
-    function handleDragStart(e) {
-        draggedItem = {
-            id: parseInt(e.target.closest('[data-id]')?.getAttribute('data-id')),
-            type: e.target.closest('[data-type]')?.getAttribute('data-type')
-        };
-        e.dataTransfer.setData('text/plain', '');
-    }
-    function handleDragOver(e) { e.preventDefault(); }
-    function handleDrop(e) {
-        e.preventDefault();
-        const targetEl = e.target.closest('[data-id]');
-        if (!targetEl || !draggedItem) return;
-        const targetId = parseInt(targetEl.getAttribute('data-id'));
-        const targetType = targetEl.getAttribute('data-type');
-
-        if (draggedItem.type === 'channel' && targetType === 'category') {
-            // move channel to category
-            const channel = mockData.channels.find(c => c.id === draggedItem.id);
-            if (channel) channel.parentCategoryId = targetId;
-            renderMockServer();
-            showToast(`Moved channel to category`);
-        }
-        else if (draggedItem.type === 'channel' && targetType === 'channel') {
-            // swap order (simplified, just reorder children)
-            showToast(`Order changed (advanced sorting ready)`);
-        }
-        draggedItem = null;
-    }
-
-    function attachButtonEvents() {
-        document.querySelectorAll('.delete-item').forEach(btn => {
-            btn.onclick = (e) => {
+    function attachPrivacyEvents() {
+        document.querySelectorAll('.privacy-btn').forEach(btn => {
+            btn.onclick = () => {
                 const id = parseInt(btn.getAttribute('data-id'));
                 const type = btn.getAttribute('data-type');
-                if (type === 'category') {
-                    mockData.categories = mockData.categories.filter(c => c.id !== id);
-                    mockData.channels = mockData.channels.filter(ch => ch.parentCategoryId !== id);
-                } else {
-                    mockData.channels = mockData.channels.filter(ch => ch.id !== id);
-                }
+                if (type === 'channel') toggleChannelPrivacy(id);
+                else toggleCategoryPrivacy(id);
+            };
+        });
+    }
+    function attachDeleteEvents() {
+        document.querySelectorAll('.delete-channel-btn').forEach(btn => {
+            btn.onclick = () => {
+                const id = parseInt(btn.getAttribute('data-id'));
+                mockData.channels = mockData.channels.filter(ch => ch.id !== id);
                 renderMockServer();
             };
         });
-        document.querySelectorAll('.move-up, .move-cat-up').forEach(btn => {
-            btn.onclick = (e) => {
-                showToast(`Reordering works in full version (drag & drop ready)`);
+        document.querySelectorAll('.delete-cat-btn').forEach(btn => {
+            btn.onclick = () => {
+                const id = parseInt(btn.getAttribute('data-id'));
+                mockData.categories = mockData.categories.filter(c => c.id !== id);
+                mockData.channels = mockData.channels.filter(ch => ch.parentCategoryId !== id);
+                renderMockServer();
             };
         });
     }
 
-    function showToast(msg) {
-        const toast = document.getElementById('toast');
-        toast.innerText = msg;
-        toast.style.display = 'block';
-        setTimeout(() => toast.style.display = 'none', 2000);
-    }
+    function showToast(msg) { alert(msg); }
 
-    // actions
-    document.getElementById('addCategoryBtn').onclick = () => {
+    document.getElementById('enterBuilderBtn').onclick = () => {
+        document.getElementById('toolsGrid').style.display = 'none';
+        document.getElementById('builderPanel').style.display = 'block';
+        renderMockServer();
+    };
+    document.getElementById('closeBuilderBtn').onclick = () => {
+        document.getElementById('builderPanel').style.display = 'none';
+        document.getElementById('toolsGrid').style.display = 'grid';
+    };
+    document.getElementById('addCatBtn').onclick = () => {
         const name = document.getElementById('catName').value.trim();
-        if (!name) return showToast('Enter category name');
+        if (!name) return;
         mockData.categories.push({ id: nextId++, name, hidden: false });
         renderMockServer();
+        updateSelectors();
         document.getElementById('catName').value = '';
     };
-    document.getElementById('addChannelBtn').onclick = () => {
-        const name = document.getElementById('channelName').value.trim();
-        if (!name) return showToast('Enter channel name');
-        const parentId = document.getElementById('parentCategorySelect').value;
-        mockData.channels.push({
-            id: nextId++,
-            name,
-            parentCategoryId: parentId ? parseInt(parentId) : null
-        });
+    document.getElementById('addChBtn').onclick = () => {
+        const name = document.getElementById('chName').value.trim();
+        if (!name) return;
+        const parentId = document.getElementById('parentSelect').value;
+        mockData.channels.push({ id: nextId++, name, parentCategoryId: parentId ? parseInt(parentId) : null, hidden: false });
         renderMockServer();
-        document.getElementById('channelName').value = '';
-    };
-    document.getElementById('toggleHiddenBtn').onclick = () => {
-        hiddenVisible = !hiddenVisible;
-        renderMockServer();
-    };
-    document.getElementById('resetAllBtn').onclick = () => {
-        mockData = { categories: [], channels: [] };
-        nextId = 1;
-        renderMockServer();
+        updateSelectors();
+        document.getElementById('chName').value = '';
     };
     document.getElementById('buildRealBtn').onclick = async () => {
-        const token = document.getElementById('botToken').value.trim();
-        const guildId = document.getElementById('targetGuildId').value.trim();
+        const token = document.getElementById('botTokenInput').value.trim();
+        const guildId = document.getElementById('guildIdInput').value.trim();
         if (!token || !guildId) return showToast('Enter Bot Token & Server ID');
-        showToast('🚀 Building real server using Promise.all...');
-        const res = await fetch('/api/build', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                token, guildId, mockup: mockData, username: 'Architect'
-            })
-        });
+        const res = await fetch('/api/build', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ token, guildId, mockup: mockData, deleteFirst: false }) });
         const data = await res.json();
-        if (data.error) showToast('❌ ' + data.error);
-        else showToast('✅ ' + data.message);
+        showToast(data.message || data.error);
+    };
+    document.getElementById('buildRealDeleteBtn').onclick = async () => {
+        const token = document.getElementById('botTokenInput').value.trim();
+        const guildId = document.getElementById('guildIdInput').value.trim();
+        if (!token || !guildId) return showToast('Enter Bot Token & Server ID');
+        const res = await fetch('/api/build', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ token, guildId, mockup: mockData, deleteFirst: true }) });
+        const data = await res.json();
+        showToast(data.message || data.error);
     };
 
+    // تحميل التيمبليتات والزخارف
+    const templatesDiv = document.getElementById('templatesList');
+    templates.forEach(t => {
+        const btn = document.createElement('div');
+        btn.className = 'template-badge';
+        btn.innerText = t.name;
+        btn.onclick = () => loadTemplate(t);
+        templatesDiv.appendChild(btn);
+    });
+    const decoDiv = document.getElementById('decorationsList');
+    decorations.forEach(d => {
+        const span = document.createElement('span');
+        span.className = 'decoration';
+        span.innerText = d;
+        span.onclick = () => {
+            const input = document.getElementById('catName');
+            input.value += d + ' ';
+        };
+        decoDiv.appendChild(span);
+    });
     renderMockServer();
+    updateSelectors();
 </script>
 </body>
 </html>
